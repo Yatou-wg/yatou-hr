@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import { Login } from "@/api/login.js";
+
 export default {
   data() {
     return {
@@ -55,8 +57,36 @@ export default {
         ],
         password: [{ required: true, trigger: "blur", message: "密码不能为空" }]
       },
-      loading: false
+      loading: false,
+      redirect: undefined
     };
+  },
+  methods: {
+    handleLogin(){
+       this.$refs.loginForm.validate(valid => {
+        // 校验通过，正常登录，更改登陆状态
+        if (valid) {
+          this.loading = true;
+          Login(this.loginForm.username, this.loginForm.password)
+            .then(response => {
+              console.log(response)
+              if (response.status === 200) {
+                this.loading = false;
+                this.$router.push({ path: this.redirect || "/" });
+                this.msgSuccess("登录成功");
+                localStorage.setItem('token', response.data);
+              }else{
+                this.loading = false;
+                this.msgInfo("用户名或密码输入错误，请重新输入！")
+              }
+            })
+            .catch(error => {
+              this.msgError("用户名或密码输入错误，请重新输入！");
+              this.loading = false;
+            });
+        }
+      });
+    }
   }
 };
 </script>
@@ -67,8 +97,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  // background-image: url("../../assets/img/login-background2.jpg");
-  background-color: aqua;
+  background-image: url("../../assets/img/login.jpg");
   background-size: cover;
   .title {
     margin: 0px auto 30px auto;
