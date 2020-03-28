@@ -5,6 +5,9 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+//引入 项目样式
+import '@/assets/css/yatou.css'
+
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
