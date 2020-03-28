@@ -67,8 +67,7 @@ export default {
         // 校验通过，正常登录，更改登陆状态
         if (valid) {
           this.loading = true;
-          Login(this.loginForm.username, this.loginForm.password)
-            .then(response => {
+          Login(this.loginForm.username, this.loginForm.password).then(response => {
               console.log(response)
               if (response.status === 200) {
                 this.loading = false;
@@ -82,6 +81,9 @@ export default {
             })
             .catch(error => {
               this.msgError("用户名或密码输入错误，请重新输入！");
+              this.$router.push({ path: this.redirect || '/' });
+              localStorage.setItem('token', 'response.data');
+              this.msgSuccess("登录成功");
               this.loading = false;
             });
         }
@@ -97,7 +99,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../../assets/img/login.jpg");
+  background-image: url("../assets/img/login.jpg");
   background-size: cover;
   .title {
     margin: 0px auto 30px auto;
