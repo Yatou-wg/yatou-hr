@@ -5,3 +5,5 @@
     npm install sass-loader --save-dev
 3、安装axios
     npm install axios   
+4、安装Nprogress
+    npm install --save nprogress
