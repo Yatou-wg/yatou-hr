@@ -19,14 +19,14 @@
     </el-header>
     <el-container>
       <el-aside width="200px" class="aside">
-        <el-menu class="el-menu-vertical" :unique-opened="true">
+        <el-menu class="el-menu-vertical" :unique-opened="true" :router="true">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span slot="title">导航一</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="1-1">选项1</el-menu-item>
+              <el-menu-item index="user">选项1</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="2">
@@ -35,7 +35,13 @@
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-main class="main">main</el-main>
+      <el-main class="main">
+        <el-breadcrumb>
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+           <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+        </el-breadcrumb>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>

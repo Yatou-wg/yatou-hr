@@ -19,3 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+.idea
+target/
+!.mvn/wrapper/maven-wrapper.jar
+

@@ -1,0 +1,18 @@
+spring:
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://139.196.90.205:3306/yatou?serverTimezone=UTC
+    username: root
+    password: 225514
+    # Druid连接池配置
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  #DevTools热服务启动
+  devtools:
+    restart:
+      enabled: true
+  # Spring Data Jpa配置
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
