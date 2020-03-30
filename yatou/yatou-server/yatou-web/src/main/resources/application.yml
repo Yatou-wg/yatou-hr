@@ -13,6 +13,6 @@ spring:
 
 #项目配置
 server:
-  port: 8081
+  port: 8080
   servlet:
     context-path: /

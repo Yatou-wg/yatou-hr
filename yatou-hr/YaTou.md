@@ -7,3 +7,22 @@
     npm install axios   
 4、安装Nprogress
     npm install --save nprogress
+5、Vue配置代理
+    let proxyObj = {};
+
+    proxyObj['/'] = {
+        target: 'http://127.0.0.1:8080/',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+            '^/': ''
+        }
+    }
+    module.exports = {
+        devServer: {
+            host: '127.0.0.1',
+            port: 80,
+            proxy: proxyObj
+        },
+    }
+6、记录错误 错误的配置axios导致无法跨域

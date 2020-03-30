@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/**")
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/css/**", "/js/**", "/img/**", "/fonts/**", "/favicon.ico")
-                .antMatchers("/login","/index.html");
+                .antMatchers("/login","/index");
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .loginProcessingUrl("/doLogin")
-                .loginPage("/login")
+                .loginPage("/")
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
