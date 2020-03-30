@@ -6,8 +6,15 @@ export function Login(username, password) {
       password,
     }
     return request({
-      url: '/user/login',
+      url: '/doLogin',
       method: 'post',
       params: data
+    })
+  }
+
+  export function logout() {
+    return request({
+      url: '/logout',
+      method: 'get',
     })
   }

@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { logout } from "@/api/login.js";
 export default {
   data() {
     return {};
@@ -68,8 +69,12 @@ export default {
           type: "warning"
         }).then(() => {
             localStorage.clear()
-            this.$router.replace("/login")
-            this.msgSuccess("注销成功")
+            logout().then(response => {
+              if(response.data.status === 200){
+                  this.msgSuccess("注销成功")
+                  this.$router.replace("/login")
+              }
+            })
           })
           .catch(() => {
             this.msgInfo("已取消操作")

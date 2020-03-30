@@ -47,8 +47,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "waggag",
-        password: "123456",
+        username: "admin",
+        password: "225514",
         rememberMe: false
       },
       loginRules: {
@@ -69,21 +69,19 @@ export default {
           this.loading = true;
           Login(this.loginForm.username, this.loginForm.password).then(response => {
               console.log(response)
-              if (response.status === 200) {
+              if (response.data.statusCodeValue === 200) {
                 this.loading = false;
                 this.$router.push({ path: this.redirect || "/" });
                 this.msgSuccess("登录成功");
-                localStorage.setItem('token', response.data);
+                localStorage.setItem('token', response.data.body);
               }else{
                 this.loading = false;
-                this.msgInfo("用户名或密码输入错误，请重新输入！")
+                this.msgInfo(response.data.body)
               }
             })
             .catch(error => {
-              this.msgError("用户名或密码输入错误，请重新输入！");
-              this.$router.push({ path: this.redirect || '/' });
-              localStorage.setItem('token', 'response.data');
-              this.msgSuccess("登录成功");
+              console.log(error)
+              this.msgError("系统错误")
               this.loading = false;
             });
         }
