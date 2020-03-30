@@ -48,6 +48,7 @@
 
 <script>
 import { logout } from "@/api/login.js";
+import { listUser } from "@/api/user.js";
 export default {
   data() {
     return {};
@@ -81,6 +82,10 @@ export default {
           });
       }else if(cmd === "userinfo") {
         this.$router.push({path:'/user/info'})
+      }else if(cmd === "setting"){
+        listUser.then(response => {
+          console.log(response);
+        })
       }
     }
   }

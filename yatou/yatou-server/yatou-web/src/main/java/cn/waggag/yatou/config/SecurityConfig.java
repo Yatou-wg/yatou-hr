@@ -19,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -89,14 +88,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         writer.close();
                     }
                 })
-                .permitAll()
                 .failureHandler(new AuthenticationFailureHandler() {
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                                         AuthenticationException exception) throws IOException, ServletException {
                         response.setContentType("application/json;charset=utf-8");
                         PrintWriter writer = response.getWriter();
-
                         String msg = null;
                         if (exception instanceof LockedException) {
                             msg = "账户被锁定，请联系管理员!";

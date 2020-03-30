@@ -1,20 +1,17 @@
 let proxyObj = {};
 
 proxyObj['/'] = {
-    target: 'http://localhost:8080/',
+    target: 'http://localhost:8081/',
+    ws: true,
     changeOrigin: true,
     pathRewrite: {
         '^/': ''
     }
 }
 module.exports = {
-    // presets: [
-    //     '@vue/cli-plugin-babel/preset'
-    // ]
     devServer: {
-        host: '127.0.0.1',
-        port: 80,
-        https: false,
-        hotOnly: false,
+        host: 'localhost',
+        port: 8080,
+        proxy: proxyObj
     },
 }
