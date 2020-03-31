@@ -16,6 +16,14 @@ Vue.use(Message)
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+
+import {
+  parseTime,
+} from "@/utils/common";
+
+//全局方法挂载
+Vue.prototype.parseTime = parseTime
+
 //全局进度条的配置
 NProgress.configure({
   showSpinner: true, //加载微调器设置,默认为true

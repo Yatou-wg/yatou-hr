@@ -7,10 +7,13 @@
         <el-dropdown class="userInfo" @command="commandHandler" trigger="click">
           <span class="el-dropdown-link">
             <span>系统管理员</span>
-            <el-avatar src="https://q1.qlogo.cn/g?b=qq&s=100&nk=1659039054" class="avatar"></el-avatar>
+            <el-avatar
+              src="https://q1.qlogo.cn/g?b=qq&s=100&nk=1659039054"
+              class="avatar"
+            ></el-avatar>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userinfo">个人中心</el-dropdown-item>
+            <el-dropdown-item command="usercenter">个人中心</el-dropdown-item>
             <el-dropdown-item command="setting">设置</el-dropdown-item>
             <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
           </el-dropdown-menu>
@@ -23,23 +26,28 @@
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span slot="title">导航一</span>
+              <span slot="title">员工资料</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="user">选项1</el-menu-item>
+              <el-menu-item index="user">基本资料</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="2">
             <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <span slot="title">人事管理</span>
           </el-menu-item>
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span slot="title">薪资管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="user">基本信息</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <el-main class="main">
-        <el-breadcrumb>
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-           <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-        </el-breadcrumb>
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -47,49 +55,50 @@
 </template>
 
 <script>
-import { logout } from "@/api/login.js";
-import { listUser } from "@/api/user.js";
+import { logout } from '@/api/login.js'
+import { listUser } from '@/api/user.js'
 export default {
   data() {
-    return {};
+    return {}
   },
   beforeCreate() {
     //获取用户Token
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token')
     if (!token) {
       //如果没有Token,跳转登录
-      this.$router.push({ path: "/login" });
+      this.$router.push({ path: '/login' })
     }
   },
   methods: {
     commandHandler(cmd) {
-      if (cmd === "logout") {
-        this.$confirm("此操作将注销登录, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {
+      if (cmd === 'logout') {
+        this.$confirm('此操作将注销登录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+          .then(() => {
             localStorage.clear()
             logout().then(response => {
-              if(response.data.status === 200){
-                  this.msgSuccess("注销成功")
-                  this.$router.replace("/login")
+              if (response.data.status === 200) {
+                this.msgSuccess('注销成功')
+                this.$router.replace('/login')
               }
             })
           })
           .catch(() => {
-            this.msgInfo("已取消操作")
-          });
-      }else if(cmd === "userinfo") {
-        this.$router.push({path:'/user/info'})
-      }else if(cmd === "setting"){
+            this.msgInfo('已取消操作')
+          })
+      } else if (cmd === 'usercenter') {
+        this.$router.push({ path: '/user/center' })
+      } else if (cmd === 'setting') {
         listUser.then(response => {
-          console.log(response);
+          console.log(response)
         })
       }
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

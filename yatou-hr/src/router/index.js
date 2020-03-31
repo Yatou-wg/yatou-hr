@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/login.vue'
 import Home from '@/views/home.vue'
-import UserInfo from '@/views/user/info/index.vue'
 import Index from '@/views/index.vue'
 
 Vue.use(VueRouter)
@@ -19,9 +18,14 @@ const routes = [
         component: Index
       },
       {
+        path: '/user/center',
+        name: '个人中心',
+        component: resolve => require(['../views/user/center/index.vue'], resolve),
+      },
+      {
         path: '/user',
-        name: 'User',
-        component: UserInfo
+        name: '用户信息',
+        component: resolve => require(['../views/user/index.vue'], resolve),
       }
     ]
   },
@@ -30,6 +34,11 @@ const routes = [
     name: 'Login',
     component: Login
   },
+  //错误路径重定向到首页
+  {
+    path: '*',
+    redirect: '/'
+  }
 ]
 
 const router = new VueRouter({
